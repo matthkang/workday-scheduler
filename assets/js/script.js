@@ -37,12 +37,12 @@ $(function () {
         var timeEntry = timesArr[i];
         // if desc already exists for time entry
         if (Object.values(timeEntry).indexOf(time_value) > -1) {
-            console.log('time exists: ', time_value);
-            console.log("description was: ", timeEntry.desc);
+            // console.log('time exists: ', time_value);
+            // console.log("description was: ", timeEntry.desc);
 
             timeEntry.desc = text_area_value;
             
-            console.log("description is now: ", timeEntry.desc);
+            // console.log("description is now: ", timeEntry.desc);
             exists = true;
         }
       }
@@ -94,22 +94,26 @@ $(function () {
   // attribute of each time-block be used to do this?
   var storage = localStorage.getItem("event");
   var storageArr = JSON.parse(storage);
-  console.log(storageArr);
-  for (var i = 0; i < storageArr.length; i++){
-    var entry = storageArr[i];
-    var time = entry.time;
-    var hour = time.substring(0, time.length-2);
-
-    var desc = entry.desc;
-
-    // target block with corresponding hour id 
-    var timeEl = $('#hour-' + hour);
-
-    // set desc for entry from localStorage
-    timeEl.children()[1].value = desc;
+  console.log("storage: ", storageArr);
+  if (storageArr !== null){
+    for (var i = 0; i < storageArr.length; i++){
+      var entry = storageArr[i];
+      var time = entry.time;
+      var hour = time.substring(0, time.length-2);
+  
+      var desc = entry.desc;
+  
+      // target block with corresponding hour id 
+      var timeEl = $('#hour-' + hour);
+  
+      // set desc for entry from localStorage
+      timeEl.children()[1].value = desc;
+    }
   }
-
+  
   //
   // TODO: Add code to display the current date in the header of the page.
+  var today = dayjs().format('dddd, MMMM D')
+  $('#currentDay').text(today);
 
 });
