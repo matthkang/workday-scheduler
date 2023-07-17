@@ -9,6 +9,7 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
 
+
   $(document).ready(function() {
     $("button").click(function(event) {
       var parent_div = $(this).parent();
@@ -20,12 +21,40 @@ $(function () {
         time: time_value,
         desc: text_area_value,
       };
-
       console.log(eventObj);
 
-      // store event object in localStorage
-      localStorage.setItem("event", JSON.stringify(eventObj));
+      var timesStorage = localStorage.getItem("event");
 
+      // store event object in localStorage
+      if (timesStorage !== null){
+        var timesArr = JSON.parse(timesStorage);
+      }
+      else {
+        var timesArr = [];
+      }
+
+      let exists = false;
+
+      for (var i = 0; i < timesArr.length; i++){
+        var timeEntry = timesArr[i];
+        // if desc already exists for time entry
+        if (Object.values(timeEntry).indexOf(time_value) > -1) {
+            console.log('time exists: ', time_value);
+            console.log("description was: ", timeEntry.desc);
+
+            timeEntry.desc = text_area_value;
+            
+            
+            console.log("description is now: ", timeEntry.desc);
+            exists = true;
+        }
+      }
+
+      if (exists === false) {
+          timesArr.push(eventObj);
+      }
+
+      localStorage.setItem("event", JSON.stringify(timesArr));
     });
   });
 
@@ -35,6 +64,9 @@ $(function () {
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
+  var scheduleBlock = $('.container-fluid');
+  var times = scheduleBlock.children();
+
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id

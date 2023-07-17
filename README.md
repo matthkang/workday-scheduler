@@ -32,3 +32,4 @@ You can view the high scores at any time by clicking the 'View High Scores' from
 ## Credits
 
 - https://stackoverflow.com/questions/30237338/how-to-get-id-of-div-on-click-of-button-inside-it
+- https://stackoverflow.com/questions/48239/getting-the-id-of-the-element-that-fired-an-event
