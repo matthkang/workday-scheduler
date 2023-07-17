@@ -16,7 +16,7 @@ $(function () {
       var time_value = parent_div.children()[0].textContent;
       var text_area_value = parent_div.children()[1].value;
 
-      // create object of time and text
+      // create object of time and desc
       const eventObj = {
         time: time_value,
         desc: text_area_value,
@@ -66,6 +66,30 @@ $(function () {
   // current hour in 24-hour time?
   var scheduleBlock = $('.container-fluid');
   var times = scheduleBlock.children();
+  console.log(times);
+
+  var currentHour = dayjs().hour();
+
+  for (var i = 0; i < times.length; i++){
+    var entry = times[i];
+    var hourId = entry.id; // "hour-9"
+    var entryJs = $('#' + hourId)
+
+    var hour = hourId.split('-')[1];
+
+    // in the past
+    if (hour < currentHour){
+      entryJs.removeClass().addClass("row time-block past");
+    }
+    // in the present
+    else if (hour == currentHour){
+      entryJs.removeClass().addClass("row time-block present");
+    }
+    // in the future
+    else {
+      entryJs.removeClass().addClass("row time-block future");
+    }
+  }
 
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
@@ -73,4 +97,5 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
+
 });
