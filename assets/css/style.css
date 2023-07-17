@@ -57,3 +57,20 @@ textarea {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
 }
+
+.codes {
+  margin: 3rem auto;
+  max-width: 90vw;
+  width: 50ch;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.code {
+  display: flex;
+  flex-basis: 33%;
+  justify-content: center;
+  flex-direction: column;
+  padding: 5px;
+}
