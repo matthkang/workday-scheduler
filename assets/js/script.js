@@ -9,7 +9,6 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
 
-
   $(document).ready(function() {
     $("button").click(function(event) {
       var parent_div = $(this).parent();
@@ -21,7 +20,6 @@ $(function () {
         time: time_value,
         desc: text_area_value,
       };
-      console.log(eventObj);
 
       var timesStorage = localStorage.getItem("event");
 
@@ -44,12 +42,12 @@ $(function () {
 
             timeEntry.desc = text_area_value;
             
-            
             console.log("description is now: ", timeEntry.desc);
             exists = true;
         }
       }
-
+      
+      // first time saving entry, push new object to array
       if (exists === false) {
           timesArr.push(eventObj);
       }
@@ -66,7 +64,6 @@ $(function () {
   // current hour in 24-hour time?
   var scheduleBlock = $('.container-fluid');
   var times = scheduleBlock.children();
-  console.log(times);
 
   var currentHour = dayjs().hour();
 
@@ -95,6 +92,23 @@ $(function () {
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
+  var storage = localStorage.getItem("event");
+  var storageArr = JSON.parse(storage);
+  console.log(storageArr);
+  for (var i = 0; i < storageArr.length; i++){
+    var entry = storageArr[i];
+    var time = entry.time;
+    var hour = time.substring(0, time.length-2);
+
+    var desc = entry.desc;
+
+    // target block with corresponding hour id 
+    var timeEl = $('#hour-' + hour);
+
+    // set desc for entry from localStorage
+    timeEl.children()[1].value = desc;
+  }
+
   //
   // TODO: Add code to display the current date in the header of the page.
 
